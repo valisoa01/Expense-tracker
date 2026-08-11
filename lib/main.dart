@@ -1,10 +1,19 @@
+import 'package:expense_tracker/theme/app_thème.dart'; 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/expense_provider.dart';
 import 'providers/theme_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ExpenseProvider()..loadExpenses()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,22 +21,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ExpenseProvider()..loadExpenses()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-      ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, _) {
-          return MaterialApp(
-            title: 'Expense Tracker',
-            themeMode: themeProvider.themeMode,
-            theme: ThemeData(brightness: Brightness.light, useMaterial3: true),
-            darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
-            home: const _TempHomePlaceholder(),
-          );
-        },
-      ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, _) {
+        return MaterialApp(
+          title: 'Expense Tracker',
+          themeMode: themeProvider.themeMode,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          home: const _TempHomePlaceholder(),
+        );
+      },
     );
   }
 }
@@ -38,7 +41,15 @@ class _TempHomePlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Test Provider')),
+      appBar: AppBar(
+        title: const Text('Test Provider'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.brightness_6),
+            onPressed: () => context.read<ThemeProvider>().toggleTheme(),
+          )
+        ],
+      ),
       body: Consumer<ExpenseProvider>(
         builder: (context, provider, _) {
           if (provider.isLoading) {
