@@ -57,8 +57,8 @@ class StatsScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: ExpenseCategory.values.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: Responsive.gridColumns(context),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
                     mainAxisSpacing: 12,
                     crossAxisSpacing: 12,
                     childAspectRatio: 1.4,
@@ -96,5 +96,28 @@ class StatsScreen extends StatelessWidget {
               ],
             ),
     );
+  }
+}
+
+extension ExpenseCategoryExtension on ExpenseCategory {
+  IconData get icon {
+    switch (this) {
+      default:
+        return Icons.monetization_on;
+    }
+  }
+
+  Color get color {
+    switch (this) {
+      default:
+        return Colors.blue;
+    }
+  }
+
+  String get label {
+    switch (this) {
+      default:
+        return name;
+    }
   }
 }
