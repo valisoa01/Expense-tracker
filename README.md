@@ -56,6 +56,16 @@ flutter pub get
 flutter run -d chrome   # ou -d linux, ou un device Android/iOS connecté
 ```
 
+## 🧩 Widgets utilisés
+
+Au moins 8 types de widgets distincts sont utilisés dans le projet :
+`ListView`, `GridView`, `Stack`, `Card`, `SliverAppBar`, `TextFormField`,
+`DropdownButtonFormField`, `AlertDialog`, `FilterChip`, `CircleAvatar`,
+`InkWell`, `CustomScrollView`.
+
+3 widgets réutilisables dans `lib/widgets/` : `ExpenseCard`, `SearchField`, `CategoryFilterBar`.
+
+
 ## 📸 Captures d'écran
 
 | Liste (sombre) | Liste (clair) | Recherche/filtrage |
