@@ -1,9 +1,8 @@
-import 'package:expense_tracker/theme/app_th%C3%A8me.dart';
+import 'package:expense_tracker/theme/app_thème.dart'; 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/expense_provider.dart';
 import 'providers/theme_provider.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   runApp(
