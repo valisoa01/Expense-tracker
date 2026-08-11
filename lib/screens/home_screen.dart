@@ -6,6 +6,7 @@ import '../providers/theme_provider.dart';
 import '../widgets/expense_card.dart';
 import '../widgets/search_field.dart';
 import '../widgets/category_filter_bar.dart';
+import '../utils/responsive.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -46,16 +47,34 @@ class HomeScreen extends StatelessWidget {
                 ? const Center(child: CircularProgressIndicator())
                 : provider.filteredExpenses.isEmpty
                     ? const Center(child: Text('Aucune dépense trouvée'))
-                    : ListView.builder(
-                        itemCount: provider.filteredExpenses.length,
-                        itemBuilder: (context, index) {
-                          final expense = provider.filteredExpenses[index];
-                          return ExpenseCard(
-                            expense: expense,
-                            onTap: () => context.push('/expense/${expense.id}'),
-                          );
-                        },
-                      ),
+                    : Responsive.isTablet(context)
+                        ? GridView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: Responsive.isDesktop(context) ? 3 : 2,
+                              mainAxisSpacing: 4,
+                              crossAxisSpacing: 8,
+                              childAspectRatio: 3.2,
+                            ),
+                            itemCount: provider.filteredExpenses.length,
+                            itemBuilder: (context, index) {
+                              final expense = provider.filteredExpenses[index];
+                              return ExpenseCard(
+                                expense: expense,
+                                onTap: () => context.push('/expense/${expense.id}'),
+                              );
+                            },
+                          )
+                        : ListView.builder(
+                            itemCount: provider.filteredExpenses.length,
+                            itemBuilder: (context, index) {
+                              final expense = provider.filteredExpenses[index];
+                              return ExpenseCard(
+                                expense: expense,
+                                onTap: () => context.push('/expense/${expense.id}'),
+                              );
+                            },
+                          ),
           ),
         ],
       ),

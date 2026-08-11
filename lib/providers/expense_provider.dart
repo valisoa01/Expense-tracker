@@ -24,6 +24,8 @@ class ExpenseProvider extends ChangeNotifier {
     }).toList();
   }
 
+  List<Expense> get expensesForStats => _expenses;
+
   double get totalAmount =>
       _expenses.fold(0, (sum, e) => sum + e.amount);
 
