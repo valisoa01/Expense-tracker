@@ -6,7 +6,6 @@ class ExpenseProvider extends ChangeNotifier {
   final ExpenseRepository _repository = ExpenseRepository();
 
   List<Expense> _expenses = [];
-  List<Expense> get expensesForStats => _expenses;
   bool _isLoading = false;
   String _searchQuery = '';
   ExpenseCategory? _selectedCategory;
@@ -14,6 +13,7 @@ class ExpenseProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get searchQuery => _searchQuery;
   ExpenseCategory? get selectedCategory => _selectedCategory;
+
   List<Expense> get filteredExpenses {
     return _expenses.where((expense) {
       final matchesSearch = expense.title
